@@ -1,0 +1,8 @@
+.photo-grid__like-container {
+  display: flex;
+  flex-direction: column;
+  margin: 22px 18px;
+  max-width: 21px;
+  max-height: 40px;
+  text-align: center;
+}

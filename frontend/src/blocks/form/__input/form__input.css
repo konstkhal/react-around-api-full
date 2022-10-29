@@ -1,0 +1,23 @@
+.form__input {
+	max-width: 358px;
+	margin: 30px 36px 0;
+	width: 100%;
+	padding: 0 0 13px;
+	border: 0;
+	border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+	font-size: 14px;
+	line-height: calc(17 / 14);
+	background: transparent;
+}
+.form__input:nth-of-type(2) {
+	margin-top: 30px;
+}
+
+@media screen and (max-width: 890px) {
+	.form__input {
+		max-width: 238px;
+		width: calc(100% - 44px);
+		padding: 0 0 9px;
+		margin: 76px 22px 0;
+	}
+}

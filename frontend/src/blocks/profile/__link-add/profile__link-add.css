@@ -1,0 +1,21 @@
+.profile__link-add {
+  display: flex;
+  border: 2px solid #fff;
+  min-width: 150px;
+  height: 50px;
+  align-items: center;
+  justify-content: center;
+  justify-self: flex-end;
+  margin: 35px 0 0 165px;
+  background: transparent;
+  padding: 0;
+  border-radius: 2px;
+}
+
+@media screen and (max-width: 890px) {
+  .profile__link-add {
+    margin: 38px 0 0;
+    width: 282px;
+    height: 50px;
+  }
+}

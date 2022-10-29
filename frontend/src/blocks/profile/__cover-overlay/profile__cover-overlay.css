@@ -1,0 +1,14 @@
+.profile__cover-overlay {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  /*background-color: rgba(0, 0, 0, 1);*/
+  /* opacity: 0.8;*/
+  /* transition: opacity 0.8s;*/
+}
+
+.profile__photo-container:hover .profile__cover-overlay {
+  background-color: rgba(0, 0, 0, 0.8);
+  /* opacity: 0.8;*/
+  /*transition: opacity 0.8s;*/
+}

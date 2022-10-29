@@ -1,0 +1,16 @@
+.photo-grid__image {
+  /*  grid-area: picture; */
+  /*   display: block;
+ */
+  max-width: 100%;
+  width: 282px;
+  height: 282px;
+  object-fit: cover;
+  border-radius: 10px 10px 0 0;
+  overflow: hidden;
+}
+
+.photo-grid__image:hover {
+  opacity: 0.6;
+  cursor: pointer;
+}

@@ -1,0 +1,22 @@
+.form-page__input {
+	all: unset;
+	color: #fff;
+	border-bottom: 2px solid #ccc;
+	min-height: 27px;
+	line-height: 1.21;
+	font-size: 14px;
+	min-width: 358px;
+	/* margin-bottom: 30px; */
+}
+
+.form-page__input:autofill,
+.form-page__input:-webkit-autofill,
+.form-page__input:-webkit-autofill:focus,
+.form-page__input:-webkit-autofill:hover,
+.form-page__input:-webkit-autofill:active {
+	-webkit-background-clip: text;
+	background-clip: text;
+	/* 	font-size: 14px; */
+	color: #fff;
+	-webkit-text-fill-color: #fff;
+}

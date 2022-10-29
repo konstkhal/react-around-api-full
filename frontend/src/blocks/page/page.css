@@ -1,0 +1,24 @@
+/* .page * {
+	border: 1px solid red;
+} */
+.page {
+	font-family: 'Inter', sans-serif;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+	-webkit-text-size-adjust: 100%;
+	-ms-text-size-adjust: 100%;
+	-moz-text-size-adjust: 100%;
+	text-rendering: optimizeLegibility;
+	background-color: #000000;
+	margin-bottom: 60px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
+}
+
+@media screen and (max-width: 860px) {
+	.page {
+		margin-bottom: 36px;
+	}
+}
