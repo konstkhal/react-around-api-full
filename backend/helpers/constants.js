@@ -63,6 +63,10 @@ const APP_STATE = {
     STATUS: 404,
     MESSAGE: 'Requested resource not found',
   },
+  HTTP_USER_NOT_FOUND_MALICIOUS: {
+    STATUS: 401,
+    MESSAGE: 'Requested resource not found',
+  },
 };
 
 const errorHandler = (res, error) => {

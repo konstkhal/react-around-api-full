@@ -1,3 +1,4 @@
+const jwt = require('jsonwebtoken');
 const User = require('../models/user');
 
 const { APP_STATE, errorHandler } = require('../helpers/constants');
@@ -83,10 +84,28 @@ const updateProfileAvatar = (req, res) => {
     .catch((err) => errorHandler(res, err));
 };
 
+const login = (req, res) => {
+  const { email, password } = req.body;
+  return User.findUserByCredentials({ email, password })
+    .orFail(() => {
+      const error = new Error(APP_STATE.HTTP_USER_NOT_FOUND_MALICIOUS.MESSAGE);
+      error.statusCode = APP_STATE.HTTP_USER_NOT_FOUND_MALICIOUS.STATUS;
+      throw error;
+    })
+    .then((user) => {
+      const token = jwt.sign({ _id: user._id }, 'some-secret-key', {
+        expiresIn: '1w',
+      });
+      res.send({ token });
+    })
+    .catch((err) => errorHandler(res, err));
+};
+
 module.exports = {
   getUsers,
   getProfile,
   createUser,
   updateProfile,
   updateProfileAvatar,
+  login,
 };
