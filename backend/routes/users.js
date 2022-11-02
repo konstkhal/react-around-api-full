@@ -9,9 +9,14 @@ const {
   /*   getError, */
   updateProfileAvatar,
   updateProfile,
+  login,
 } = require('../controllers/users');
 
+const { createUserSchema, loginSchema } = require('../middleware/validation');
+
 router.post('/', createUser);
+router.post('/signup', createUserSchema, createUser);
+router.post('/signin', loginSchema, login);
 router.get('/', getUsers);
 router.get('/:id', getProfile);
 
