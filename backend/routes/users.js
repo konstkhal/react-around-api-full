@@ -13,6 +13,9 @@ const {
 } = require('../controllers/users');
 
 const { createUserSchema, loginSchema } = require('../middleware/validation');
+const auth = require('../middleware/auth');
+
+router.get('/users/me', auth, getProfile);
 
 // router.post('/', createUser);
 router.post('/signup', createUserSchema, createUser);
