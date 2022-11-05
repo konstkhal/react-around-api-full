@@ -12,7 +12,7 @@ const mongoose = require('mongoose');
 
 const routes = require('./routes');
 
-const APP_STATUS = require('./helpers/constants');
+const APP_STATE = require('./helpers/constants');
 
 const { PORT = 3000 } = process.env;
 
@@ -40,7 +40,7 @@ app.use(express.static(path.join(__dirname, 'public') /* .normalize */));
 app.use(routes);
 
 app.use((req, res, next) => {
-  res.status(404).send(APP_STATUS[410]);
+  res.status(404).send(APP_STATE[410]);
   next();
 });
 

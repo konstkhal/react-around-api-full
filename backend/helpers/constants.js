@@ -65,7 +65,11 @@ const APP_STATE = {
   },
   HTTP_USER_NOT_FOUND_MALICIOUS: {
     STATUS: 401,
-    MESSAGE: 'Requested resource not found',
+    MESSAGE: 'Incorrect email or password.',
+  },
+  HTTP_NOT_AUTHORIZED: {
+    STATUS: 401,
+    MESSAGE: 'You are not authorized to perform this action',
   },
 };
 
