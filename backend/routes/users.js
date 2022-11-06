@@ -20,11 +20,11 @@ router.get('/users/me', auth, getProfile);
 // router.post('/', createUser);
 router.post('/signup', createUserSchema, createUser);
 router.post('/signin', loginSchema, login);
-router.get('/', getUsers);
-router.get('/:id', getProfile);
+router.get('/', auth, getUsers);
+router.get('/:id', auth, getProfile);
 
-router.patch('/me/avatar', updateProfileAvatar);
-router.patch('/me', updateProfile);
+router.patch('/me/avatar', auth, updateProfileAvatar);
+router.patch('/me', auth, updateProfile);
 
 /* router.get('/*', getError); */
 

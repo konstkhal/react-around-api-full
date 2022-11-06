@@ -64,7 +64,7 @@ const APP_STATE = {
     MESSAGE: 'Requested resource not found',
   },
   HTTP_USER_NOT_FOUND_MALICIOUS: {
-    STATUS: 401,
+    STATUS: 403,
     MESSAGE: 'Incorrect email or password.',
   },
   HTTP_NOT_AUTHORIZED: {
