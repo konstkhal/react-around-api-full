@@ -18,13 +18,13 @@ const { PORT = 3000 } = process.env;
 
 const app = express();
 app.use(helmet());
-app.use((req, res, next) => {
+/* app.use((req, res, next) => {
   req.user = {
     _id: '6324bf6d9cc5a966c51ed69c', // paste the _id of the test user created in the previous step
   };
 
   next();
-});
+}); */
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json()); // To parse the incoming requests with JSON payloads
