@@ -22,16 +22,22 @@ const createCard = (req, res) => {
 };
 
 const deleteCard = (req, res) => {
-  Card.findByIdAndRemove(req.params.cardId)
+  Card.findOne({ _id: req.params.cardId })
     .orFail(() => {
       const error = new Error(APP_STATE.HTTP_NOTHING_FOUND.MESSAGE);
       error.statusCode = APP_STATE.HTTP_NOTHING_FOUND.STATUS; // 404
       throw error;
     })
+
     .then((card) => {
-      res
-        .status(APP_STATE.REMOVE_CARD_SUCCESS.STATUS)
-        .send({ message: APP_STATE.REMOVE_CARD_SUCCESS.MESSAGE, data: card });
+      if (card.owner !== req.user._id) {
+        const error = new Error(APP_STATE.HTTP_FORBIDDEN.MESSAGE);
+        error.statusCode = APP_STATE.HTTP_FORBIDDEN.STATUS; // 403
+        throw error;
+      }
+      return Card.findByIdAndRemove(req.params.cardId).then((cardRemoved) => {
+        res.send(cardRemoved);
+      });
     })
     .catch((err) => errorHandler(res, err));
 };

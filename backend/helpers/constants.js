@@ -67,6 +67,10 @@ const APP_STATE = {
     STATUS: 403,
     MESSAGE: 'Incorrect email or password.',
   },
+  HTTP_FORBIDDEN: {
+    STATUS: 403,
+    MESSAGE: 'Action forbidden.',
+  },
   HTTP_NOT_AUTHORIZED: {
     STATUS: 401,
     MESSAGE: 'You are not authorized to perform this action',
@@ -81,6 +85,9 @@ const errorHandler = (res, error) => {
 
   if (error.statusCode === APP_STATE.HTTP_NOTHING_FOUND.STATUS) {
     errorName = 'NotFound';
+  }
+  if (error.statusCode === APP_STATE.HTTP_FORBIDDEN.STATUS) {
+    errorName = 'Forbidden';
   }
 
   switch (errorName) {
@@ -97,6 +104,11 @@ const errorHandler = (res, error) => {
     case 'ValidationError': {
       status = APP_STATE.HTTP_BAD_REQUEST.STATUS;
       message = APP_STATE.HTTP_BAD_REQUEST.MESSAGE;
+      break;
+    }
+    case 'Forbidden': {
+      status = APP_STATE.HTTP_FORBIDDEN.STATUS;
+      message = APP_STATE.HTTP_FORBIDDEN.MESSAGE;
       break;
     }
     default:
