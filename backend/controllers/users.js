@@ -53,7 +53,7 @@ const createUser = (req, res) => {
 
 const updateProfile = (req, res) => {
   const { name, about } = req.body;
-  User.findByIdAndUpdate(
+  User.findOne(
     req.user._id,
     { name, about },
     { new: true, runValidators: true }
@@ -63,24 +63,45 @@ const updateProfile = (req, res) => {
       error.statusCode = APP_STATE.HTTP_USER_NOT_FOUND.STATUS;
       throw error;
     })
-    .then((user) => res.send({ data: user }))
+    .then((user) => {
+      if (user._id !== req.user._id) {
+        const error = new Error(APP_STATE.HTTP_FORBIDDEN.MESSAGE);
+        error.statusCode = APP_STATE.HTTP_FORBIDDEN.STATUS; // 403
+        throw error;
+      }
+      return User.findByIdAndUpdate(
+        req.user._id,
+        { name, about },
+        { new: true, runValidators: true }
+      ).then((userUpdated) => {
+        res.send({ data: userUpdated });
+      });
+    })
     .catch((err) => errorHandler(res, err));
 };
 
 const updateProfileAvatar = (req, res) => {
   const { avatar } = req.body;
-  User.findByIdAndUpdate(
-    req.user._id,
-    { avatar },
-    { new: true, runValidators: true }
-  )
+  User.findOne(req.user._id, { avatar }, { new: true, runValidators: true })
     .orFail(() => {
       const error = new Error(APP_STATE.HTTP_USER_NOT_FOUND.MESSAGE);
       error.statusCode = APP_STATE.HTTP_USER_NOT_FOUND.STATUS;
       throw error;
     })
-
-    .then((user) => res.send({ data: user }))
+    .then((user) => {
+      if (user._id !== req.user._id) {
+        const error = new Error(APP_STATE.HTTP_FORBIDDEN.MESSAGE);
+        error.statusCode = APP_STATE.HTTP_FORBIDDEN.STATUS; // 403
+        throw error;
+      }
+      return User.findByIdAndUpdate(
+        req.user._id,
+        { avatar },
+        { new: true, runValidators: true }
+      ).then((userUpdated) => {
+        res.send({ data: userUpdated });
+      });
+    })
     .catch((err) => errorHandler(res, err));
 };
 
