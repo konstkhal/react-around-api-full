@@ -4,6 +4,7 @@ export class Api {
 	constructor({ baseUrl, headers }) {
 		this._baseUrl = baseUrl;
 		this._headers = headers;
+		this._token = '';
 	}
 	_customFetch = async (url, headers) => {
 		const response = await fetch(url, headers);
@@ -13,6 +14,8 @@ export class Api {
 			return Promise.reject(response.statusText);
 		}
 	};
+
+	setToken = (token) => (this._token = token);
 
 	init = () =>
 		Promise.all([
@@ -79,10 +82,18 @@ export class Api {
 	}
 }
 
-export const api = new Api({
+/* export const api = new Api({
 	baseUrl: 'https://around.nomoreparties.co/v1/group-12',
 	headers: {
 		authorization: 'cfbd7707-a110-44ae-8aa8-630296f53c66',
+		'Content-Type': 'application/json',
+	},
+}); */
+
+export const api = new Api({
+	baseUrl: 'https://around.nomoreparties.co/v1/group-12',
+	headers: {
+		authorization: `Bearer ${this._token}`,
 		'Content-Type': 'application/json',
 	},
 });
