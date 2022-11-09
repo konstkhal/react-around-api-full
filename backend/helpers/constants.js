@@ -51,10 +51,16 @@ const APP_STATE = {
     STATUS: 400,
     MESSAGE: 'The request malformed and should not be processed',
   },
+
   HTTP_USER_NOT_FOUND: {
     STATUS: 404,
     MESSAGE: 'ID not found',
   },
+  HTTP_USER_LIST_EMPTY: {
+    STATUS: 404,
+    MESSAGE: 'User list empty',
+  },
+
   HTTP_NO_SUCH_ROUTE: {
     STATUS: 404,
     MESSAGE: 'No page found for the specified route',
