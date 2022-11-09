@@ -12,7 +12,7 @@ const mongoose = require('mongoose');
 
 const routes = require('./routes');
 
-const APP_STATE = require('./helpers/constants');
+const { APP_STATE, errorHandler } = require('./helpers/constants');
 
 const { PORT = 3000 } = process.env;
 
@@ -43,6 +43,8 @@ app.use((req, res, next) => {
   res.status(404).send(APP_STATE[410]);
   next();
 });
+
+app.use(errorHandler);
 
 app.listen(PORT, () => {
   console.log(`App listening on port: ${PORT} `);

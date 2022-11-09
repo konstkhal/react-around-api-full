@@ -17,7 +17,7 @@ const APP_STATE = {
   },
   DEFAULT_SERVER_ERROR: {
     STATUS: 500,
-    MESSAGE: 'We have encountered an error 111',
+    MESSAGE: 'We have encountered an error',
   },
   REMOVE_CARD_SERVER_ERROR: {
     STATUS: 500,
@@ -75,21 +75,40 @@ const APP_STATE = {
     STATUS: 401,
     MESSAGE: 'You are not authorized to perform this action',
   },
+  REQUEST_CONFLICT_USER_EXISTS: {
+    STATUS: 409,
+    MESSAGE: 'The user with the provided email already exists',
+  },
 };
 
-const errorHandler = (res, error) => {
-  let errorName = error.name || '';
+/**
+ *
+  module.exports.errorHandler = (err, req, res, next) => {
+  const statusCode = err.statusCode || 500;
+  const message = statusCode === 500 ? 'An error occurred on the server' : err.message;
+  res.status(statusCode).send({ message });
+  next();
+};
+ *
+ *
+ */
+const errorHandler = (error, req, res, next) => {
+  /*   let errorName = error.name || ''; */
 
-  let status = APP_STATE.DEFAULT_SERVER_ERROR.STATUS;
-  let message = APP_STATE.DEFAULT_SERVER_ERROR.MESSAGE;
+  const status = error.status || 500;
+  const message =
+    status === 500 ? APP_STATE.DEFAULT_SERVER_ERROR.MESSAGE : error.message;
 
-  if (error.statusCode === APP_STATE.HTTP_NOTHING_FOUND.STATUS) {
+  res.status(status).send({ message });
+  next();
+
+  /*   if (error.status === APP_STATE.HTTP_NOTHING_FOUND.STATUS) {
     errorName = 'NotFound';
   }
   if (error.statusCode === APP_STATE.HTTP_FORBIDDEN.STATUS) {
     errorName = 'Forbidden';
-  }
-
+  } */
+  /*
   switch (errorName) {
     case 'NotFound': {
       status = APP_STATE.HTTP_NOTHING_FOUND.STATUS;
@@ -115,7 +134,7 @@ const errorHandler = (res, error) => {
       break;
   }
 
-  res.status(status).send({ message });
+  res.status(status).send({ message }); */
 };
 
 module.exports = { APP_STATE, errorHandler };
