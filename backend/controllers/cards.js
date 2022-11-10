@@ -16,7 +16,7 @@ const getCards = (req, res, next) => {
     .then((cards) => {
       res.status(APP_STATE.DEFAULT_OK.STATUS).send(cards);
     })
-    .catch(next);
+    .catch((err) => next(err));
 };
 
 const createCard = (req, res, next) => {
@@ -27,7 +27,7 @@ const createCard = (req, res, next) => {
     .then((card) => {
       res.status(APP_STATE.CREATE_CARD_SUCCESS.STATUS).send({ data: card });
     })
-    .catch(next);
+    .catch((err) => next(err));
 };
 
 const deleteCard = (req, res, next) => {
@@ -55,7 +55,7 @@ const deleteCard = (req, res, next) => {
         res.send(cardRemoved);
       });
     })
-    .catch(next);
+    .catch((err) => next(err));
 };
 
 const likeCard = (req, res, next) => {
@@ -76,7 +76,7 @@ const likeCard = (req, res, next) => {
       throw error; */
     })
     .then((card) => res.send({ data: card }))
-    .catch(next);
+    .catch((err) => next(err));
 };
 
 const dislikeCard = (req, res, next) => {
@@ -97,7 +97,7 @@ const dislikeCard = (req, res, next) => {
       throw error; */
     })
     .then((card) => res.send({ data: card }))
-    .catch(next);
+    .catch((err) => next(err));
 };
 
 module.exports = {

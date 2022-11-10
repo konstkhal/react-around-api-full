@@ -25,7 +25,7 @@ const getUsers = (req, res, next) => {
       } */
       res.status(APP_STATE.DEFAULT_OK.STATUS).send({ data: users });
     })
-    .catch(next);
+    .catch((err) => next(err));
 };
 
 const getProfile = (req, res, next) => {
@@ -49,7 +49,7 @@ const getProfile = (req, res, next) => {
       } */
       res.status(APP_STATE.DEFAULT_OK.STATUS).send({ data: user });
     })
-    .catch(next);
+    .catch((err) => next(err));
 };
 
 const createUser = (req, res, next) => {
@@ -82,7 +82,7 @@ const createUser = (req, res, next) => {
     .then((user) => {
       res.status(APP_STATE.CREATE_USER_SUCCESS.STATUS).send({ data: user });
     })
-    .catch(next);
+    .catch((err) => next(err));
 };
 
 const updateProfile = (req, res, next) => {
@@ -119,7 +119,7 @@ const updateProfile = (req, res, next) => {
         res.send({ data: userUpdated });
       });
     })
-    .catch(next);
+    .catch((err) => next(err));
 };
 
 const updateProfileAvatar = (req, res, next) => {
@@ -152,7 +152,7 @@ const updateProfileAvatar = (req, res, next) => {
         res.send({ data: userUpdated });
       });
     })
-    .catch(next);
+    .catch((err) => next(err));
 };
 
 const login = (req, res, next) => {
@@ -181,7 +181,7 @@ const login = (req, res, next) => {
         res.send({ token });
       });
     })
-    .catch(next);
+    .catch((err) => next(err));
 };
 
 module.exports = {
