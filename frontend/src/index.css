@@ -1,13 +1,9 @@
-/**
- * /*Vendors
- *
- * @format
- */
+/* Vendors */
 
 @import url(./vendor/fonts.css);
 @import url(./vendor/normalize.css);
 
-/*Blocks*/
+/* Blocks */
 @import url(./blocks/button/button.css);
 @import url(./blocks/content/content.css);
 @import url(./blocks/footer/footer.css);
@@ -18,7 +14,7 @@
 @import url(./blocks/popup/popup.css);
 @import url(./blocks/profile/profile.css);
 
-/*Elements*/
+/* Elements */
 @import url(./blocks/footer/__paragraph/footer__paragraph.css);
 @import url(./blocks/form/form.css);
 @import url(./blocks/form/__input-error/form__input-error.css);
@@ -67,7 +63,7 @@
 @import url(./blocks/profile/__role/profile__role.css);
 @import url(./blocks/popup/__status-message/popup__status-message.css);
 
-/*Modifiers*/
+/* Modifiers */
 @import url(./blocks/form/__input-error/_visible/form__input-error_visible.css);
 @import url(./blocks/profile/__link-change/place/profile__link-change_place_image.css);
 @import url(./blocks/profile/__image-change/_place/__image-change_place_image.css);
@@ -76,7 +72,3 @@
 @import url(./blocks/popup/__window/_type/popup__window_type_preview.css);
 @import url(./blocks/photo-grid/__like-button/_active/photo-grid__like-button_active.css);
 @import url(./blocks/form-page/__input-error/_active/form-page__input-error_active.css);
-
-/* body * {
-	border: 1px solid red;
-} */

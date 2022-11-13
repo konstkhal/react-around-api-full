@@ -3,7 +3,7 @@ const AuthorizationError = require('../errors/AuthorizationError');
 
 const Card = require('../models/card');
 
-const { APP_STATE /* errorHandler */ } = require('../helpers/constants');
+const { APP_STATE } = require('../helpers/constants');
 
 const getCards = (req, res, next) => {
   Card.find({})
@@ -37,9 +37,6 @@ const deleteCard = (req, res, next) => {
         APP_STATE.HTTP_NOTHING_FOUND.MESSAGE,
         APP_STATE.HTTP_NOTHING_FOUND.STATUS
       );
-      /* const error = new Error(APP_STATE.HTTP_NOTHING_FOUND.MESSAGE);
-      error.statusCode = APP_STATE.HTTP_NOTHING_FOUND.STATUS; // 404
-      throw error; */
     })
     .then((card) => {
       if (card.owner !== req.user._id) {
@@ -47,9 +44,6 @@ const deleteCard = (req, res, next) => {
           APP_STATE.HTTP_FORBIDDEN.MESSAGE,
           APP_STATE.HTTP_FORBIDDEN.STATUS
         );
-        /*   const error = new Error(APP_STATE.HTTP_FORBIDDEN.MESSAGE);
-        error.statusCode = APP_STATE.HTTP_FORBIDDEN.STATUS; // 403
-        throw error; */
       }
       return Card.findByIdAndRemove(req.params.cardId).then((cardRemoved) => {
         res.send(cardRemoved);
@@ -69,11 +63,6 @@ const likeCard = (req, res, next) => {
         APP_STATE.HTTP_NOTHING_FOUND.MESSAGE,
         APP_STATE.HTTP_NOTHING_FOUND.STATUS
       );
-      /*  const error = new Error({
-        message: APP_STATE.HTTP_NOTHING_FOUND.MESSAGE,
-      });
-      error.statusCode = APP_STATE.HTTP_NOTHING_FOUND.STATUS; // 404
-      throw error; */
     })
     .then((card) => res.send({ data: card }))
     .catch((err) => next(err));
@@ -90,11 +79,6 @@ const dislikeCard = (req, res, next) => {
         APP_STATE.HTTP_NOTHING_FOUND.MESSAGE,
         APP_STATE.HTTP_NOTHING_FOUND.STATUS
       );
-      /* const error = new Error({
-        message: APP_STATE.HTTP_NOTHING_FOUND.MESSAGE,
-      });
-      error.statusCode = APP_STATE.HTTP_NOTHING_FOUND.STATUS; // 404
-      throw error; */
     })
     .then((card) => res.send({ data: card }))
     .catch((err) => next(err));

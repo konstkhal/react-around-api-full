@@ -21,12 +21,10 @@ import Header from './Header';
 import ImagePopup from './ImagePopup';
 import Main from './Main';
 import PopupWithForm from './PopupWithForm';
-//import Card from './Card';
+
 import ProtectedRoute from './ProtectedRoute';
 import InfoTooltip from './InfoTooltip';
-/* import decline from '../images/decline.png';
-import accept from '../images/accept.png'; */
-//import UserDetails from './UserDetails';
+
 import { auth } from '../utils/auth';
 import Register from './Register';
 import Login from './Login';
@@ -55,8 +53,6 @@ export default function App() {
 
 	const [IsSuccess, setIsSuccess] = React.useState(true);
 
-	/* 	const [isUserDetailsOpen, setIsUserDetailsOpen] =
-		React.useState(false); */
 	const [isLoggedIn, setIsLoggedIn] = React.useState(false);
 	const [isLoading, setIsLoading] = React.useState(false);
 	const navigate = useNavigate();
@@ -191,11 +187,6 @@ export default function App() {
 			.then((user) => {
 				if (user.data._id) {
 					setIsSuccess(true);
-
-					/* 				setTimeout(() => {
-						navigate('/signin');
-						setIsInfoTooltipOpen(true);
-					}, 3000); */
 				} else {
 					setIsSuccess(false);
 				}
@@ -206,7 +197,7 @@ export default function App() {
 			})
 			.finally(() => {
 				setIsLoading(false);
-				//		setIsSuccess(true);
+
 				setIsInfoTooltipOpen(true);
 			});
 	};
@@ -217,7 +208,7 @@ export default function App() {
 			.authenticate({ email, password })
 			.then((user) => {
 				localStorage.setItem('jwt', user.token);
-				/* 				setIsInfoTooltipOpen(true); */
+
 				setIsLoggedIn(true);
 				setIsSuccess(true);
 				setCurrentUser({ ...currentUser, email });
@@ -233,7 +224,7 @@ export default function App() {
 
 	const handleLogout = () => {
 		setIsLoggedIn(false);
-		/* 		setIsUserDetailsOpen(false); */
+
 		localStorage.removeItem('jwt');
 	};
 	return (
@@ -246,7 +237,6 @@ export default function App() {
 				/>
 
 				<Header
-					/* 					isDropDownOpen={isUserDetailsOpen} */
 					handleLogout={handleLogout}
 					isLoggedIn={isLoggedIn}
 					email={currentUser.email}

@@ -6,25 +6,34 @@
 
 const express = require('express');
 const helmet = require('helmet');
+const rateLimit = require('express-rate-limit');
+
 const path = require('path');
 
 const mongoose = require('mongoose');
+
+const mongoSanitize = require('express-mongo-sanitize');
+const { errors } = require('celebrate');
+const { errorLogger, requestLogger } = require('./middleware/logger');
 
 const routes = require('./routes');
 
 const { APP_STATE, errorHandler } = require('./helpers/constants');
 
-const { PORT = 3000 } = process.env;
+const NotFoundError = require('./errors/NotFoundError');
+
+const { PORT = 3000, NODE_ENV = 'test' } = process.env;
 
 const app = express();
-app.use(helmet());
-/* app.use((req, res, next) => {
-  req.user = {
-    _id: '6324bf6d9cc5a966c51ed69c', // paste the _id of the test user created in the previous step
-  };
 
-  next();
-}); */
+const limiter = rateLimit({
+  windowMs: 5 * 60 * 1000, // 5 minutes
+  max: 100, // Limit each IP to 100 requests per `window` (here, per 15 minutes)
+  standardHeaders: true, // Return rate limit info in the `RateLimit-*` headers
+  legacyHeaders: false, // Disable the `X-RateLimit-*` headers
+});
+
+app.use(helmet());
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json()); // To parse the incoming requests with JSON payloads
@@ -35,17 +44,47 @@ mongoose.connect('mongodb://localhost:27017/aroundb', {});
 
 app.disable('x-powered-by');
 
-app.use(express.static(path.join(__dirname, 'public') /* .normalize */));
+app.use(limiter);
+
+app.use(
+  mongoSanitize({
+    allowDots: true,
+    replaceWith: '_',
+  })
+);
+
+app.use(express.static(path.join(__dirname, 'public')));
+app.use(requestLogger);
 
 app.use(routes);
 
-app.use((req, res, next) => {
-  res.status(404).send(APP_STATE[410]);
-  next();
+// remove this later ↓
+app.get('/crash-test', () => {
+  setTimeout(() => {
+    throw new Error('Server will crash now');
+  }, 0);
 });
+
+app.use('/', (req, res, next) => {
+  next(
+    new NotFoundError(
+      APP_STATE.HTTP_NO_SUCH_ROUTE.MESSAGE,
+      APP_STATE.HTTP_NO_SUCH_ROUTE.STATUS
+    )
+  );
+});
+
+app.use(errorLogger);
+
+// celebrate error handler ↓
+app.use(errors());
 
 app.use(errorHandler);
 
-app.listen(PORT, () => {
-  console.log(`App listening on port: ${PORT} `);
-});
+if (NODE_ENV !== 'test') {
+  app.listen(PORT);
+} else {
+  app.listen(PORT, () => {
+    console.log(`App listening on port: ${PORT} `);
+  });
+}

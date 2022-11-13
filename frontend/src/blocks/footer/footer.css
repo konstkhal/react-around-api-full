@@ -3,7 +3,6 @@
 	max-width: 318px;
 	display: flex;
 	justify-content: center;
-	/*  margin: 68px 0 0 calc((100% - 318px - 562px) / 2); */
 	font-weight: 400;
 	font-size: 18px;
 	line-height: calc(22 / 18);
@@ -15,8 +14,6 @@
 @media screen and (max-width: 1279px) {
 	.footer {
 		max-width: 282px;
-		/*     width: calc(100% - (19px * 2)); */
-		/* 		margin: 50px 19px 0 19px; */
 		align-self: center;
 		font-size: 14px;
 		line-height: calc(17 / 14);

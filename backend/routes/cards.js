@@ -11,12 +11,17 @@ const {
   likeCard,
   dislikeCard,
 } = require('../controllers/cards');
+const getCardsValidate = require('../middleware/validation/getCardsValidate'); //+
+const createCardValidate = require('../middleware/validation/createCardValidate'); //+
+const deleteCardValidate = require('../middleware/validation/deleteCardValidate'); //+
+const likeCardValidate = require('../middleware/validation/likeCardValidate'); //+
+const dislikeCardValidate = require('../middleware/validation/dislikeCardValidate'); //+
 
-router.get('/', auth, getCards);
-router.post('/', auth, createCard);
-router.delete('/:cardId', auth, deleteCard);
+router.get('/', auth, getCardsValidate, getCards);
+router.post('/', auth, createCardValidate, createCard);
+router.delete('/:cardId', auth, deleteCardValidate, deleteCard);
 
-router.put('/:cardId/likes', auth, likeCard);
-router.delete('/:cardId/likes', auth, dislikeCard);
+router.put('/:cardId/likes', auth, likeCardValidate, likeCard);
+router.delete('/:cardId/likes', auth, dislikeCardValidate, dislikeCard);
 
 module.exports = router;

@@ -87,60 +87,13 @@ const APP_STATE = {
   },
 };
 
-/**
- *
-  module.exports.errorHandler = (err, req, res, next) => {
-  const statusCode = err.statusCode || 500;
-  const message = statusCode === 500 ? 'An error occurred on the server' : err.message;
-  res.status(statusCode).send({ message });
-  next();
-};
- *
- *
- */
 const errorHandler = (error, req, res, next) => {
-  /*   let errorName = error.name || ''; */
-
   const status = error.status || 500;
   const message =
     status === 500 ? APP_STATE.DEFAULT_SERVER_ERROR.MESSAGE : error.message;
 
   res.status(status).send({ message });
   next();
-
-  /*   if (error.status === APP_STATE.HTTP_NOTHING_FOUND.STATUS) {
-    errorName = 'NotFound';
-  }
-  if (error.statusCode === APP_STATE.HTTP_FORBIDDEN.STATUS) {
-    errorName = 'Forbidden';
-  } */
-  /*
-  switch (errorName) {
-    case 'NotFound': {
-      status = APP_STATE.HTTP_NOTHING_FOUND.STATUS;
-      message = APP_STATE.HTTP_NOTHING_FOUND.MESSAGE;
-      break;
-    }
-    case 'CastError': {
-      status = APP_STATE.HTTP_BAD_REQUEST.STATUS;
-      message = APP_STATE.HTTP_BAD_REQUEST.MESSAGE;
-      break;
-    }
-    case 'ValidationError': {
-      status = APP_STATE.HTTP_BAD_REQUEST.STATUS;
-      message = APP_STATE.HTTP_BAD_REQUEST.MESSAGE;
-      break;
-    }
-    case 'Forbidden': {
-      status = APP_STATE.HTTP_FORBIDDEN.STATUS;
-      message = APP_STATE.HTTP_FORBIDDEN.MESSAGE;
-      break;
-    }
-    default:
-      break;
-  }
-
-  res.status(status).send({ message }); */
 };
 
 module.exports = { APP_STATE, errorHandler };

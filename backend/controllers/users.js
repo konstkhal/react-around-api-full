@@ -7,7 +7,7 @@ const ValidationError = require('../errors/ValidationError');
 const ConflictError = require('../errors/ConflictError');
 const AuthorizationError = require('../errors/AuthorizationError');
 
-const { APP_STATE /* errorHandler */ } = require('../helpers/constants');
+const { APP_STATE } = require('../helpers/constants');
 
 const getUsers = (req, res, next) => {
   User.find({})
@@ -18,11 +18,6 @@ const getUsers = (req, res, next) => {
       );
     })
     .then((users) => {
-      /*  if (users === null) {
-        res
-          .status(APP_STATE.HTTP_NOTHING_FOUND.STATUS)
-          .send(APP_STATE.HTTP_NOTHING_FOUND.MESSAGE);
-      } */
       res.status(APP_STATE.DEFAULT_OK.STATUS).send({ data: users });
     })
     .catch((err) => next(err));
@@ -35,18 +30,8 @@ const getProfile = (req, res, next) => {
         APP_STATE.HTTP_USER_NOT_FOUND.MESSAGE,
         APP_STATE.HTTP_USER_NOT_FOUND.STATUS
       );
-
-      /*  const error = new Error(APP_STATE.HTTP_USER_NOT_FOUND.MESSAGE);
-      error.statusCode = APP_STATE.HTTP_USER_NOT_FOUND.STATUS;
-      throw error; // Remember to throw an error so .catch handles it instead of .then */
     })
-
     .then((user) => {
-      /*     if (!user) {
-        return res
-          .status(APP_STATE.HTTP_USER_NOT_FOUND.STATUS)
-          .send({ message: APP_STATE.HTTP_USER_NOT_FOUND.MESSAGE });
-      } */
       res.status(APP_STATE.DEFAULT_OK.STATUS).send({ data: user });
     })
     .catch((err) => next(err));
@@ -97,9 +82,6 @@ const updateProfile = (req, res, next) => {
         APP_STATE.HTTP_USER_NOT_FOUND.MESSAGE,
         APP_STATE.HTTP_USER_NOT_FOUND.STATUS
       );
-      /*    const error = new Error(APP_STATE.HTTP_USER_NOT_FOUND.MESSAGE);
-      error.statusCode = APP_STATE.HTTP_USER_NOT_FOUND.STATUS;
-      throw error; */
     })
     .then((user) => {
       if (user._id !== req.user._id) {
@@ -107,9 +89,6 @@ const updateProfile = (req, res, next) => {
           APP_STATE.HTTP_FORBIDDEN.MESSAGE,
           APP_STATE.HTTP_FORBIDDEN.STATUS
         );
-        /*    const error = new Error(APP_STATE.HTTP_FORBIDDEN.MESSAGE);
-        error.statusCode = APP_STATE.HTTP_FORBIDDEN.STATUS; // 403
-        throw error; */
       }
       return User.findByIdAndUpdate(
         req.user._id,
@@ -130,9 +109,6 @@ const updateProfileAvatar = (req, res, next) => {
         APP_STATE.HTTP_USER_NOT_FOUND.MESSAGE,
         APP_STATE.HTTP_USER_NOT_FOUND.STATUS
       );
-      /*   const error = new Error(APP_STATE.HTTP_USER_NOT_FOUND.MESSAGE);
-      error.statusCode = APP_STATE.HTTP_USER_NOT_FOUND.STATUS;
-      throw error; */
     })
     .then((user) => {
       if (user._id !== req.user._id) {
@@ -140,9 +116,6 @@ const updateProfileAvatar = (req, res, next) => {
           APP_STATE.HTTP_FORBIDDEN.MESSAGE,
           APP_STATE.HTTP_FORBIDDEN.STATUS
         );
-        /*       const error = new Error(APP_STATE.HTTP_FORBIDDEN.MESSAGE);
-        error.statusCode = APP_STATE.HTTP_FORBIDDEN.STATUS; // 403
-        throw error; */
       }
       return User.findByIdAndUpdate(
         req.user._id,
@@ -163,9 +136,6 @@ const login = (req, res, next) => {
         APP_STATE.HTTP_USER_NOT_FOUND_MALICIOUS.MESSAGE,
         APP_STATE.HTTP_USER_NOT_FOUND_MALICIOUS.STATUS
       );
-      /*    const error = new Error(APP_STATE.HTTP_USER_NOT_FOUND_MALICIOUS.MESSAGE);
-      error.statusCode = APP_STATE.HTTP_USER_NOT_FOUND_MALICIOUS.STATUS;
-      throw error; */
     })
     .then((user) => {
       bcrypt.compare(password, user.password).then((match) => {

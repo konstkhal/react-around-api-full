@@ -2,13 +2,12 @@
  * @format done by Prettier
  * @function Header returns Header element
  *
- *
  */
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import logo from '../images/Vector__header.svg';
 import { UserContext } from '../contexts/CurrentUserContext';
-/* import HeaderNav from './HeaderNav'; */
+
 
 export default function Header({
 	isLoggedIn,
