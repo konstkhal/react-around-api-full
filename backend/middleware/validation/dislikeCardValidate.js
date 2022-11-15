@@ -1,6 +1,6 @@
 const { celebrate, Joi } = require('celebrate');
 
-const dislikeCardValidate = celebrate({
+exports.dislikeCardValidate = celebrate({
   params: Joi.object().keys({
     cardId: Joi.string().hex().length(24).required(),
   }),
@@ -11,6 +11,6 @@ const dislikeCardValidate = celebrate({
     .unknown(true),
 });
 
-module.exports = {
+/* module.exports = {
   dislikeCardValidate,
-};
+}; */

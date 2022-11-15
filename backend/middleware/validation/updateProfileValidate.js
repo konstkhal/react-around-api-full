@@ -1,6 +1,6 @@
 const { celebrate, Joi } = require('celebrate');
 
-const updateProfileValidate = celebrate({
+exports.updateProfileValidate = celebrate({
   body: Joi.object()
     .keys({
       name: Joi.string().min(2).max(30),
@@ -9,6 +9,6 @@ const updateProfileValidate = celebrate({
     .min(1),
 });
 
-module.exports = {
+/* module.exports = {
   updateProfileValidate,
-};
+}; */

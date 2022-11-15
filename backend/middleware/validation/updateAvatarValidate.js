@@ -2,10 +2,11 @@ const { celebrate, Joi } = require('celebrate');
 
 const { validateURL } = require('../../helpers/validateURL');
 
-const updateAvatarValidate = celebrate({
+exports.updateAvatarValidate = celebrate({
   body: Joi.object().keys({ avatar: Joi.string().custom(validateURL) }),
 });
 
-module.exports = {
+/* module.exports = {
   updateAvatarValidate,
 };
+ */

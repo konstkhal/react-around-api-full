@@ -1,6 +1,6 @@
 const { celebrate, Joi } = require('celebrate');
 
-const getCardsValidate = celebrate({
+exports.getCardsValidate = celebrate({
   headers: Joi.object()
     .keys({
       authorization: Joi.string().trim().required(),
@@ -8,6 +8,6 @@ const getCardsValidate = celebrate({
     .unknown(true),
 });
 
-module.exports = {
+/* module.exports = {
   getCardsValidate,
-};
+}; */

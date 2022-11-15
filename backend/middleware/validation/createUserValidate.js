@@ -2,14 +2,13 @@ const { celebrate, Joi } = require('celebrate');
 
 const { validateURL } = require('../../helpers/validateURL');
 
-const createUserValidate = celebrate({
+exports.createUserValidate = celebrate({
   body: Joi.object().keys({
     email: Joi.string().email({
       minDomainSegments: 2,
       maxDomainSegments: 3,
       allowUnicode: false,
       tlds: {
-        allow: false,
         deny: [
           'ua',
           'at',
@@ -66,6 +65,6 @@ const createUserValidate = celebrate({
   }),
 });
 
-module.exports = {
+/* module.exports = {
   createUserValidate,
-};
+}; */

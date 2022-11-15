@@ -13,12 +13,22 @@ const {
 
 const auth = require('../middleware/auth');
 
-const createUserValidate = require('../middleware/validation/createUserValidate'); //+
-const loginValidate = require('../middleware/validation/loginValidate');
-const getUsersValidate = require('../middleware/validation/getUsersValidate');
-const getProfileValidate = require('../middleware/validation/getProfileValidate');
-const updateAvatarValidate = require('../middleware/validation/updateAvatarValidate');
-const updateProfileValidate = require('../middleware/validation/updateProfileValidate');
+const {
+  createUserValidate,
+} = require('../middleware/validation/createUserValidate'); //+
+const { loginValidate } = require('../middleware/validation/loginValidate');
+const {
+  getUsersValidate,
+} = require('../middleware/validation/getUsersValidate');
+const {
+  getProfileValidate,
+} = require('../middleware/validation/getProfileValidate');
+const {
+  updateAvatarValidate,
+} = require('../middleware/validation/updateAvatarValidate');
+const {
+  updateProfileValidate,
+} = require('../middleware/validation/updateProfileValidate');
 
 router.post('/signup', createUserValidate, createUser);
 router.post('/signin', loginValidate, login);

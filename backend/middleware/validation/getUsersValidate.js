@@ -1,6 +1,6 @@
 const { celebrate, Joi } = require('celebrate');
 
-const getUsersValidate = celebrate({
+exports.getUsersValidate = celebrate({
   headers: Joi.object()
     .keys({
       authorization: Joi.string().trim().required(),
@@ -8,6 +8,7 @@ const getUsersValidate = celebrate({
     .unknown(true),
 });
 
-module.exports = {
+/* module.exports = {
   getUsersValidate,
 };
+ */
