@@ -13,8 +13,11 @@ const path = require('path');
 const mongoose = require('mongoose');
 
 const mongoSanitize = require('express-mongo-sanitize');
+const cors = require('cors');
 const { errors } = require('celebrate');
 const { errorLogger, requestLogger } = require('./middleware/logger');
+
+// include these before other routes
 
 const routes = require('./routes');
 
@@ -25,6 +28,8 @@ const NotFoundError = require('./errors/NotFoundError');
 const { PORT = 3000, NODE_ENV = 'test' } = process.env;
 
 const app = express();
+app.use(cors());
+app.options('*', cors()); // enable requests for all routes
 
 const limiter = rateLimit({
   windowMs: 5 * 60 * 1000, // 5 minutes
