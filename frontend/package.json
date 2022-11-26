@@ -18,7 +18,8 @@
 	"scripts": {
 		"start": "react-scripts start -- --port 3001",
 		"build": "react-scripts build",
-		"test": "react-scripts test"
+		"test": "react-scripts test",
+		"deploy": "npm run build && scp -r ./build/* konstkhal@answer-42.students.nomoredomainssbs.ru:/home/konstkhal/react-around-api-full/frontend"
 	},
 	"eslintConfig": {
 		"extends": [
