@@ -16,7 +16,7 @@
 		"@svgr/webpack": "^6.3.1"
 	},
 	"scripts": {
-		"start": "react-scripts start -- --port 3001",
+		"start": "cross-env PORT=3001 react-scripts start",
 		"build": "react-scripts build",
 		"test": "react-scripts test",
 		"deploy": "npm run build && scp -r ./build/* konstkhal@answer-42.students.nomoredomainssbs.ru:/home/konstkhal/react-around-api-full/frontend"
@@ -41,6 +41,7 @@
 	},
 	"devDependencies": {
 		"@svgr/webpack": "^6.3.1",
+		"cross-env": "^7.0.3",
 		"eslint-config-prettier": "^8.5.0"
 	}
 }

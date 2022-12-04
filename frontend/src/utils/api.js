@@ -83,7 +83,7 @@ export class Api {
 }
 
 export const api = new Api({
-	baseUrl: 'https://around.nomoreparties.co/v1/group-12',
+	baseUrl: 'http://localhost:3000',
 	headers: {
 		authorization: `Bearer ${this._token}`,
 		'Content-Type': 'application/json',

@@ -8,7 +8,7 @@ const express = require('express');
 const helmet = require('helmet');
 const rateLimit = require('express-rate-limit');
 
-const path = require('path');
+// const path = require('path');
 
 const mongoose = require('mongoose');
 
@@ -49,8 +49,6 @@ mongoose.connect('mongodb://localhost:27017/aroundb', {});
 
 app.disable('x-powered-by');
 
-app.use(limiter);
-
 app.use(
   mongoSanitize({
     allowDots: true,
@@ -58,8 +56,10 @@ app.use(
   })
 );
 
-app.use(express.static(path.join(__dirname, 'public')));
+// app.use(express.static(path.join(__dirname, 'public')));
 app.use(requestLogger);
+
+app.use(limiter);
 
 app.use(routes);
 

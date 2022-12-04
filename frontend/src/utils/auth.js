@@ -36,6 +36,6 @@ class Auth extends Api {
 }
 
 export const auth = new Auth({
-	baseUrl: 'https://register.nomoreparties.co',
+	baseUrl: 'http://localhost:3000',
 	headers: { 'Content-Type': 'application/json' },
 });
