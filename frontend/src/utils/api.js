@@ -1,10 +1,10 @@
 /** @format */
 
 export class Api {
-	constructor({ baseUrl, headers }) {
+	constructor({ baseUrl, headers, jwt }) {
 		this._baseUrl = baseUrl;
 		this._headers = headers;
-		this._token = '';
+		this._token = jwt;
 	}
 	_customFetch = async (url, headers) => {
 		const response = await fetch(url, headers);
@@ -14,7 +14,7 @@ export class Api {
 			return Promise.reject(response.statusText);
 		}
 	};
-
+	//
 	setToken = (token) => (this._token = token);
 
 	init = () =>
@@ -82,10 +82,12 @@ export class Api {
 	}
 }
 
+const jwt = localStorage.getItem('jwt');
+
 export const api = new Api({
 	baseUrl: 'http://localhost:3000',
 	headers: {
-		authorization: `Bearer ${this._token}`,
+		authorization: `Bearer ${jwt}`,
 		'Content-Type': 'application/json',
 	},
 });
