@@ -1,4 +1,5 @@
 const router = require('express').Router();
+const NotFoundError = require('../errors/NotFoundError');
 
 const { APP_STATE } = require('../helpers/constants');
 
@@ -18,10 +19,13 @@ router.post('/signin', loginValidate, login);
 router.use('/users', usersRouter);
 router.use('/cards', cardsRouter);
 
-router.use('*', (req, res) => {
-  res
-    .status(APP_STATE.HTTP_NOT_FOUND.STATUS)
-    .send({ message: APP_STATE.HTTP_NOT_FOUND.MESSAGE });
+router.use('*', (req, res, next) => {
+  next(
+    new NotFoundError(
+      APP_STATE.HTTP_NO_SUCH_ROUTE.MESSAGE,
+      APP_STATE.HTTP_NO_SUCH_ROUTE.STATUS
+    )
+  );
 });
 
 module.exports = router;
