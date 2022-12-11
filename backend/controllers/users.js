@@ -1,5 +1,6 @@
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
+const { MongoServerError } = require('mongoose');
 const User = require('../models/user');
 
 const NotFoundError = require('../errors/NotFoundError');
@@ -67,7 +68,16 @@ const createUser = (req, res, next) => {
     .then((user) => {
       res.status(APP_STATE.CREATE_USER_SUCCESS.STATUS).send({ data: user });
     })
-    .catch((err) => next(err));
+    .catch((err) => {
+      if (err.code === 11000 && err instanceof MongoServerError) {
+        next(
+          new ConflictError(
+            APP_STATE.REQUEST_CONFLICT_USER_EXISTS.MESSAGE,
+            APP_STATE.REQUEST_CONFLICT_USER_EXISTS.STATUS
+          )
+        );
+      } else next(err);
+    });
 };
 
 const updateProfile = (req, res, next) => {
