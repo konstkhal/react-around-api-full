@@ -11,6 +11,7 @@ const AuthorizationError = require('../errors/AuthorizationError');
 const { APP_STATE } = require('../helpers/constants');
 
 const getUsers = (req, res, next) => {
+    console.log('getUsers');
   User.find({})
     .orFail(() => {
       throw new NotFoundError(
@@ -66,7 +67,14 @@ const createUser = (req, res, next) => {
       })
     )
     .then((user) => {
-      res.status(APP_STATE.CREATE_USER_SUCCESS.STATUS).send({ data: user });
+      res.status(APP_STATE.CREATE_USER_SUCCESS.STATUS).send({
+        data: {
+          name: user.name,
+          about: user.about,
+          avatar: user.avatar,
+          email: user.email,
+        },
+      });
     })
     .catch((err) => {
       if (err.code === 11000 && err instanceof MongoServerError) {
