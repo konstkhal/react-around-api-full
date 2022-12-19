@@ -24,7 +24,9 @@ const {
   updateProfileValidate,
 } = require('../middleware/validation/updateProfileValidate');
 
-router.get('/', auth, getUsersValidate, getUsers);
+console.log('routers init');
+
+router.get('/', auth, /* getUsersValidate, */ getUsers);
 router.get('/:id', auth, getProfileValidate, getProfile);
 router.patch('/me/avatar', auth, updateAvatarValidate, updateProfileAvatar);
 router.patch('/me', auth, updateProfileValidate, updateProfile);

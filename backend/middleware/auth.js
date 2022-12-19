@@ -14,6 +14,9 @@ const handleAuthError = (res) => {
 const { NODE_ENV, JWT_SECRET } = process.env;
 
 const auth = (req, res, next) => {
+  console.log('auth');
+
+  /*
   const { authorization } = req.headers;
 
   if (!authorization || !authorization.startsWith('Bearer ')) {
@@ -32,7 +35,8 @@ const auth = (req, res, next) => {
     return handleAuthError(res);
   }
 
-  req.user = payload;
+  req.user = payload; */
+  req.user = {};
   return next();
 };
 
