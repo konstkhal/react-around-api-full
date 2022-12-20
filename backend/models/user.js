@@ -24,13 +24,13 @@ const userSchema = new mongoose.Schema({
     validate: {
       // validator must be a function returning a boolean
       // the parameter v is the data to be validated
+      message: 'Invalid URL',
+      // message to be displayed when validator returns false
       validator(v) {
-        return /https?:\/\/(www\.)?[-a-z0-9@:%_+.~#?&//=]{2,256}\.[a-z]{2,4}\b(\/[-a-z0-9@:%_+.~#?&//=]*)?#?/gi.test(
+        return /https?:\/\/(www\.)?[-a-z0-9@:%_+.~#?&/=]{2,256}\.[a-z]{2,4}\b(\/[-a-z0-9@:%_+.~#?&/=]*)?#?/gi.test(
           v
         );
       },
-      // message to be displayed when validator returns false
-      message: 'Invalid URL',
     },
   },
   email: {
@@ -56,18 +56,26 @@ userSchema.statics.findUserByCredentials = function findUserByCredentials(
   email,
   password
 ) {
-  return this.findOne({ email })
-    .select('+password')
-    .then((user) => {
-      if (!user) {
-        return Promise.reject(new Error('Incorrect email or password'));
-      }
-      return bcrypt.compare(password, user.password).then((matched) => {
-        if (!matched) {
-          return Promise.reject(new Error('Incorrect email or password'));
+  return (
+    this.findOne({ email })
+      .select('+password')
+      /*    .then((user) => {
+      console.log(user);
+      return user;
+    }) */
+      .then((user) => {
+        if (!user) {
+          return Promise.reject(new Error('Incorrect email or password THERE'));
         }
-        return user;
-      });
-    });
+        return bcrypt.compare(password, user.password).then((matched) => {
+          if (!matched) {
+            return Promise.reject(
+              new Error('Incorrect email or password HERE!')
+            );
+          }
+          return user;
+        });
+      })
+  );
 };
 module.exports = mongoose.model('user', userSchema);

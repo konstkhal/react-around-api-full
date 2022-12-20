@@ -1,3 +1,11 @@
+/**
+ * {
+ * "email": "kost@kost.com",
+ * "name": "Kost",
+ * "password": "12345678"
+ * }
+ */
+
 const express = require('express');
 
 const router = express.Router();
@@ -24,9 +32,9 @@ const {
   updateProfileValidate,
 } = require('../middleware/validation/updateProfileValidate');
 
-console.log('routers init');
+/* console.log('routers init'); */
 
-router.get('/', auth, /* getUsersValidate, */ getUsers);
+router.get('/', auth, getUsersValidate, getUsers);
 router.get('/:id', auth, getProfileValidate, getProfile);
 router.patch('/me/avatar', auth, updateAvatarValidate, updateProfileAvatar);
 router.patch('/me', auth, updateProfileValidate, updateProfile);

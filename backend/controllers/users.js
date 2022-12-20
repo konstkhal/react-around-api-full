@@ -3,6 +3,8 @@ const jwt = require('jsonwebtoken');
 const { MongoServerError } = require('mongoose');
 const User = require('../models/user');
 
+// const { findUserByCredentials } = require('../models/user');
+
 const NotFoundError = require('../errors/NotFoundError');
 const ValidationError = require('../errors/ValidationError');
 const ConflictError = require('../errors/ConflictError');
@@ -11,7 +13,7 @@ const AuthorizationError = require('../errors/AuthorizationError');
 const { APP_STATE } = require('../helpers/constants');
 
 const getUsers = (req, res, next) => {
-    console.log('getUsers');
+  /*  console.log('getUsers'); */
   User.find({})
     .orFail(() => {
       throw new NotFoundError(
@@ -148,28 +150,30 @@ const updateProfileAvatar = (req, res, next) => {
 
 const login = (req, res, next) => {
   const { email, password } = req.body;
-  return User.findUserByCredentials({ email, password })
-    .orFail(() => {
+  return (
+    User.findUserByCredentials(email, password)
+      /* .orFail(() => {
       throw new AuthorizationError(
         APP_STATE.HTTP_USER_NOT_FOUND_MALICIOUS.MESSAGE,
         APP_STATE.HTTP_USER_NOT_FOUND_MALICIOUS.STATUS
       );
-    })
-    .then((user) => {
-      bcrypt.compare(password, user.password).then((match) => {
-        if (!match) {
-          throw new AuthorizationError(
-            APP_STATE.HTTP_USER_NOT_FOUND_MALICIOUS.MESSAGE,
-            APP_STATE.HTTP_USER_NOT_FOUND_MALICIOUS.STATUS
-          );
-        }
-        const token = jwt.sign({ _id: user._id }, 'some-secret-key', {
-          expiresIn: '1w',
+    }) */
+      .then((user) => {
+        bcrypt.compare(password, user.password).then((match) => {
+          if (!match) {
+            throw new AuthorizationError(
+              APP_STATE.HTTP_USER_NOT_FOUND_MALICIOUS.MESSAGE,
+              APP_STATE.HTTP_USER_NOT_FOUND_MALICIOUS.STATUS
+            );
+          }
+          const token = jwt.sign({ _id: user._id }, 'some-secret-key', {
+            expiresIn: '1w',
+          });
+          res.send({ token });
         });
-        res.send({ token });
-      });
-    })
-    .catch((err) => next(err));
+      })
+      .catch((err) => next(err))
+  );
 };
 
 module.exports = {
