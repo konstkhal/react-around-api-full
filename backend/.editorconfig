@@ -9,6 +9,10 @@ root = true
 # Indentation style
 # Possible values - tab, space
 indent_style = space
+quote_type = single
+ij_javascript_use_double_quotes = false
+ij_javascript_force_quote_style = true
+max_line_length = 80
 
 # Indentation size in single-spaced characters
 # Possible values - an integer, tab
@@ -32,6 +36,3 @@ trim_trailing_whitespace = false
 # Denotes whether file should end with a newline
 # Possible values - true, false
 insert_final_newline = true
-
-[*]
-quote_type = single
