@@ -70,7 +70,7 @@ const APP_STATE = {
     MESSAGE: 'Requested resource not found',
   },
   HTTP_USER_NOT_FOUND_MALICIOUS: {
-    STATUS: 403,
+    STATUS: 401,
     MESSAGE: 'Incorrect email or password.',
   },
   HTTP_FORBIDDEN: {
@@ -87,12 +87,11 @@ const APP_STATE = {
   },
 };
 
-const errorHandler = (error, req, res, next) => {
-  const status = error.status || 500;
-  const message =
-    status === 500 ? APP_STATE.DEFAULT_SERVER_ERROR.MESSAGE : error.message;
+const errorHandler = (err, req, res, next) => {
+  const statusCode = err.statusCode || 500;
+  const message = err.message || APP_STATE.DEFAULT_SERVER_ERROR.MESSAGE;
 
-  res.status(status).send({ message });
+  res.status(statusCode).send({ message });
   next();
 };
 

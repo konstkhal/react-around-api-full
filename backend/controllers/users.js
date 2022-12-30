@@ -1,6 +1,6 @@
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
-const { MongoServerError } = require('mongoose');
+/* const { MongoServerError } = require('mongoose'); */
 const User = require('../models/user');
 
 // const { findUserByCredentials } = require('../models/user');
@@ -52,7 +52,7 @@ const createUser = (req, res, next) => {
     .then((user) => {
       if (user) {
         throw new ConflictError(
-          APP_STATE.REQUEST_CONFLICT_USER_EXISTS.MESSAGE,
+          APP_STATE.HTTP_USER_NOT_FOUND_MALICIOUS.MESSAGE,
           APP_STATE.REQUEST_CONFLICT_USER_EXISTS.STATUS
         );
       } else {
@@ -78,8 +78,13 @@ const createUser = (req, res, next) => {
         },
       });
     })
-    .catch((err) => {
-      if (err.code === 11000 && err instanceof MongoServerError) {
+    .catch((err) => next(err));
+  /*    .catch((err) => {
+      if (
+        (err.code === 11000 && err.name === MongoServerError) ||
+        err.statusCode === 409 ||
+        err.name === ConflictError
+      ) {
         next(
           new ConflictError(
             APP_STATE.REQUEST_CONFLICT_USER_EXISTS.MESSAGE,
@@ -87,7 +92,7 @@ const createUser = (req, res, next) => {
           )
         );
       } else next(err);
-    });
+    }); */
 };
 
 const updateProfile = (req, res, next) => {
@@ -150,6 +155,7 @@ const updateProfileAvatar = (req, res, next) => {
 
 const login = (req, res, next) => {
   const { email, password } = req.body;
+
   return (
     User.findUserByCredentials(email, password)
       /* .orFail(() => {

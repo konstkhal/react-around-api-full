@@ -19,7 +19,7 @@ router.post('/signin', loginValidate, login);
 router.use('/users', usersRouter);
 router.use('/cards', cardsRouter);
 
-router.use('*', (req, res, next) => {
+router.use('/', (req, res, next) => {
   next(
     new NotFoundError(
       APP_STATE.HTTP_NO_SUCH_ROUTE.MESSAGE,
